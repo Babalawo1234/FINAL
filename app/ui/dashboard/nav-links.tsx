@@ -1,24 +1,21 @@
 'use client';
 
 import {
-  UserGroupIcon,
   HomeIcon,
-  DocumentDuplicateIcon,
+  BookOpenIcon,
+  ChartBarIcon,
+  UserIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
+// Map of links to display in the side navigation for Course Checksheet App
 const links = [
-  { name: 'Home', href: '/Dashboard', icon: HomeIcon },
-  {
-    name: 'Invoices',
-    href: '/Dashboard/Invoices',
-    icon: DocumentDuplicateIcon,
-  },
-  { name: 'Customers', href: '/Dashboard/Customers', icon: UserGroupIcon },
+  { name: 'Dashboard', href: '/Dashboard', icon: HomeIcon },
+  { name: 'My Courses', href: '/courses', icon: BookOpenIcon },
+  { name: 'Progress', href: '/Dashboard/Progress', icon: ChartBarIcon },
+  { name: 'Profile', href: '/Dashboard/Profile', icon: UserIcon },
 ];
 
 export default function NavLinks() {
@@ -32,11 +29,12 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className={clsx(
-              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
+              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 dark:bg-dark-tertiary p-3 text-sm font-medium hover:bg-accent-50 dark:hover:bg-dark-700 hover:text-accent-600 dark:hover:text-accent-400 text-gray-700 dark:text-gray-300 md:flex-none md:justify-start md:p-2 md:px-3 transition-all duration-200',
               {
-                'bg-sky-100 text-blue-600': pathname === link.href,
+                'bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 shadow-sm': pathname === link.href,
               },
-            )}>
+            )}
+          >
             <LinkIcon className="w-6" />
             <p className="hidden md:block">{link.name}</p>
           </Link>

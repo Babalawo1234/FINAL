@@ -1,4 +1,9 @@
-import { Revenue } from './definitions';
+import { type ClassValue, clsx } from 'clsx';
+
+// Utility for merging Tailwind classes
+export function cn(...inputs: ClassValue[]) {
+  return clsx(inputs);
+}
 
 export const formatCurrency = (amount: number) => {
   return (amount / 100).toLocaleString('en-US', {
@@ -21,7 +26,7 @@ export const formatDateToLocal = (
   return formatter.format(date);
 };
 
-export const generateYAxis = (revenue: Revenue[]) => {
+export const generateYAxis = (revenue: any[]) => {
   // Calculate what labels we need to display on the y-axis
   // based on highest record and in 1000s
   const yAxisLabels = [];

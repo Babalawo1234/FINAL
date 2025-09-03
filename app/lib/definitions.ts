@@ -1,88 +1,90 @@
 // This file contains type definitions for your data.
 // It describes the shape of the data, and what data type each property should accept.
-// For simplicity of teaching, we're manually defining these types.
-// However, these types are generated automatically if you're using an ORM such as Prisma.
+// Course Checksheet Application Types
+
 export type User = {
   id: string;
   name: string;
   email: string;
   password: string;
+  fullName: string;
+  school: 'School of IT and Computing' | 'School of Engineering' | 'School of Business' | 'School of Sciences' | 'School of Liberal Arts';
+  department: 'Information Security & Assurance' | 'Computer Science' | 'Data Science' | 'Software Engineering' | 'Information Systems' | 'Cybersecurity' | 'Mathematics' | 'English' | 'Research';
+  degreeType?: string;
+  catalog: '2018' | '2022';
+  studentId: string;
 };
 
-export type Customer = {
+export type Course = {
+  id: string;
+  code: string;
+  title: string;
+  description: string;
+  category: string;
+  department: 'Information Security & Assurance' | 'Computer Science' | 'Data Science' | 'Software Engineering' | 'Information Systems' | 'Cyber Security' | 'Mathematics' | 'English' | 'Research';
+  school?: 'School of IT and Computing' | 'School of Engineering' | 'School of Business' | 'School of Sciences' | 'School of Liberal Arts';
+  catalog?: '2018' | '2022';
+  duration: number; // in weeks
+  credits?: number; // credit hours for the course
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  requirements?: string[];
+  created_at: string;
+  updated_at: string;
+};
+
+export type UserCourse = {
+  id: string;
+  user_id: string;
+  course_id: string;
+  status: 'not_started' | 'in_progress' | 'completed';
+  progress: number; // percentage 0-100
+  grade?: 'A+' | 'A' | 'B+' | 'B' | 'B-' | 'C+' | 'C' | 'D' | 'E' | 'F' | null;
+  semester?: 'Fall' | 'Spring' | null;
+  year?: string | null;
+  started_at?: string | null;
+  completed_at?: string | null;
+  notes?: string;
+};
+
+export type CourseWithProgress = Course & {
+  status: 'not_started' | 'in_progress' | 'completed';
+  progress: number;
+  grade?: 'A+' | 'A' | 'B+' | 'B' | 'B-' | 'C+' | 'C' | 'D' | 'E' | 'F' | null;
+  semester?: 'Fall' | 'Spring' | null;
+  year?: string | null;
+  started_at?: string | null;
+  completed_at?: string | null;
+  notes?: string;
+};
+
+export type CourseCategory = {
   id: string;
   name: string;
-  email: string;
-  image_url: string;
+  description: string;
+  course_count: number;
 };
 
-export type Invoice = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  date: string;
-  // In TypeScript, this is called a string union type.
-  // It means that the "status" property can only be one of the two strings: 'pending' or 'paid'.
-  status: 'pending' | 'paid';
+export type DashboardStats = {
+  totalCourses: number;
+  completedCourses: number;
+  inProgressCourses: number;
+  notStartedCourses: number;
+  creditsEarned: number;
+  completionRate: number;
 };
 
-export type Revenue = {
-  month: string;
-  revenue: number;
+export type CourseForm = {
+  id?: string;
+  title: string;
+  description: string;
+  category: string;
+  duration: number;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
 };
 
-export type LatestInvoice = {
-  id: string;
-  name: string;
-  image_url: string;
-  email: string;
-  amount: string;
-};
-
-// The database returns a number for amount, but we later format it to a string with the formatCurrency function
-export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
-  amount: number;
-};
-
-export type InvoicesTable = {
-  id: string;
-  customer_id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  date: string;
-  amount: number;
-  status: 'pending' | 'paid';
-};
-
-export type CustomersTableType = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: number;
-  total_paid: number;
-};
-
-export type FormattedCustomersTable = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: string;
-  total_paid: string;
-};
-
-export type CustomerField = {
-  id: string;
-  name: string;
-};
-
-export type InvoiceForm = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  status: 'pending' | 'paid';
+export type UserCourseForm = {
+  course_id: string;
+  status: 'not_started' | 'in_progress' | 'completed';
+  progress: number;
+  notes?: string;
 };
